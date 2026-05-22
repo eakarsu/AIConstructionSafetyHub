@@ -54,8 +54,27 @@ import BulkImportPage from './pages/BulkImportPage';
 
 import LoginPage from './pages/LoginPage';
 import CustomViewsPage from './pages/CustomViewsPage';
+
+// Apply pass 7: backlog
+import AIRcaAnalyzerPage from './pages/AIRcaAnalyzerPage';
+import AINearMissSimilarityPage from './pages/AINearMissSimilarityPage';
+import AIOshaNarrativePage from './pages/AIOshaNarrativePage';
+import AIHazardImageClassifierPage from './pages/AIHazardImageClassifierPage';
+import AILeadingIndicatorPredictorPage from './pages/AILeadingIndicatorPredictorPage';
+import OshaReportsPage from './pages/OshaReportsPage';
+import CertificationsPage from './pages/CertificationsPage';
+import SubcontractorOnboardingPage from './pages/SubcontractorOnboardingPage';
+import LoneWorkerPage from './pages/LoneWorkerPage';
+import WearablesPage from './pages/WearablesPage';
+import DronesPage from './pages/DronesPage';
+import ScaffoldTagCompliancePage from './pages/ScaffoldTagCompliancePage';
 import { LogOut, Menu } from 'lucide-react';
 import './App.css';
+
+import CodexCustomVizFeature from './pages/CodexCustomVizFeature';
+import CodexOperationsFeature from './pages/CodexOperationsFeature';
+
+import TimelineView from './pages/TimelineView';
 
 function Shell({ user, onLogout }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -80,6 +99,10 @@ function Shell({ user, onLogout }) {
           </button>
         </div>
         <Routes>
+        <Route path="/insights/timeline" element={<TimelineView />} />
+        <Route path="/codex/custom-viz" element={<CodexCustomVizFeature />} />
+        <Route path="/codex/operations" element={<CodexOperationsFeature />} />
+
           <Route path="/" element={<Dashboard />} />
 
           {/* Original 8 CRUD */}
@@ -126,6 +149,20 @@ function Shell({ user, onLogout }) {
 
           {/* Custom Views */}
           <Route path="/custom-views" element={<CustomViewsPage />} />
+
+          {/* Apply pass 7: backlog */}
+          <Route path="/ai/rca-analyzer" element={<AIRcaAnalyzerPage />} />
+          <Route path="/ai/near-miss-similarity" element={<AINearMissSimilarityPage />} />
+          <Route path="/ai/osha-narrative" element={<AIOshaNarrativePage />} />
+          <Route path="/ai/hazard-image-classifier" element={<AIHazardImageClassifierPage />} />
+          <Route path="/ai/leading-indicator-predictor" element={<AILeadingIndicatorPredictorPage />} />
+          <Route path="/osha-reports" element={<OshaReportsPage />} />
+          <Route path="/certifications" element={<CertificationsPage />} />
+          <Route path="/subcontractor-onboarding" element={<SubcontractorOnboardingPage />} />
+          <Route path="/lone-worker" element={<LoneWorkerPage />} />
+          <Route path="/wearables" element={<WearablesPage />} />
+          <Route path="/drones" element={<DronesPage />} />
+          <Route path="/scaffold-tag-compliance" element={<ScaffoldTagCompliancePage />} />
 
           {/* Cross-cutting */}
           <Route path="/notifications" element={<NotificationsPage />} />

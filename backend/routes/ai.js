@@ -915,6 +915,286 @@ const SAMPLES = {
       },
     },
   ],
+  'rca-analyzer': [
+    {
+      label: 'Fall from leading edge (5-Whys)',
+      values: {
+        site: 'Riverside Tower Phase II',
+        type: 'fall',
+        severity: 'high',
+        occurred_at: '2026-04-12 09:42',
+        description: 'Worker fell 8 ft from leading edge while setting rebar; lanyard found stowed.',
+      },
+    },
+    {
+      label: 'Struck-by tower crane load',
+      values: {
+        site: 'Tower 88 Curtain Wall',
+        type: 'struck-by',
+        severity: 'critical',
+        occurred_at: '2026-03-28 14:10',
+        description: '4200 lb curtain-wall panel swung in 22 mph gust; tag-line operator lost control.',
+      },
+    },
+    {
+      label: 'Trench partial cave-in',
+      values: {
+        site: 'East Campus Excavation',
+        type: 'caught-in',
+        severity: 'critical',
+        occurred_at: '2026-04-21 08:55',
+        description: 'Type C trench partial cave-in; shoring had been removed for pipe lay segment.',
+      },
+    },
+    {
+      label: 'Arc-flash near-miss',
+      values: {
+        site: 'Mercy Hospital Wing C',
+        type: 'electrocution',
+        severity: 'high',
+        occurred_at: '2026-04-02 11:05',
+        description: 'LOTO not re-verified after lunch; 480V bus re-energized by other crew.',
+      },
+    },
+    {
+      label: 'Heat collapse (rebar)',
+      values: {
+        site: 'Greenway Solar Array',
+        type: 'other',
+        severity: 'medium',
+        occurred_at: '2026-04-30 13:20',
+        description: 'PV installer collapsed at 96F heat index; no shade within 200 ft.',
+      },
+    },
+  ],
+  'near-miss-similarity': [
+    {
+      label: 'Dropped tool near crane',
+      values: {
+        query: 'Wrench dropped from level 17 inside tower crane lift zone, near-miss to ground crew',
+        site: 'Riverside Tower Phase II',
+        category: 'struck-by',
+        window_days: 180,
+      },
+    },
+    {
+      label: 'Spoil pile edge slip',
+      values: {
+        query: 'Worker slipped at trench edge near spoil pile; recovered self with handline',
+        site: 'East Campus Storm Drain',
+        category: 'caught-in',
+        window_days: 365,
+      },
+    },
+    {
+      label: 'Hot-work spark on combustible',
+      values: {
+        query: 'Welding spark landed on cardboard packaging; fire watch caught and extinguished',
+        site: 'Mercy Hospital Wing C',
+        category: 'fire',
+        window_days: 90,
+      },
+    },
+    {
+      label: 'Scissor lift drift on slope',
+      values: {
+        query: 'Scissor lift drifted on uneven decking; outrigger pad sank',
+        site: 'Tower 88 Curtain Wall',
+        category: 'fall',
+        window_days: 180,
+      },
+    },
+    {
+      label: 'Roofer unanchored at eave',
+      values: {
+        query: 'Roofer briefly detached from horizontal lifeline to reposition; SRL not re-clipped within 30 sec',
+        site: 'Saint Peters Cathedral Re-Roof',
+        category: 'fall',
+        window_days: 120,
+      },
+    },
+  ],
+  'osha-narrative': [
+    {
+      label: 'Fractured tibia (struck-by)',
+      values: {
+        employee_name: 'Diego Ramirez',
+        job_title: 'Scaffold Erector',
+        date_of_event: '2026-03-28',
+        site: 'Tower 88 Curtain Wall',
+        establishment_name: 'Skyline Builders LLC',
+        where_event_occurred: 'Level 27 scaffold platform',
+        description: 'Curtain-wall panel swung in gust during landing; panel struck scaffold crew; one fractured tibia, hospitalized.',
+        days_away_from_work: 14,
+      },
+    },
+    {
+      label: 'Fall 8 ft, 24 hr observation',
+      values: {
+        employee_name: 'James Roe',
+        job_title: 'Rebar Installer',
+        date_of_event: '2026-04-12',
+        site: 'Riverside Tower Phase II',
+        establishment_name: 'Skyline Builders LLC',
+        where_event_occurred: '18th-story leading edge',
+        description: 'Worker fell 8 ft from leading edge while tying rebar; lanyard stowed; hospitalized for 24 hr observation.',
+        days_away_from_work: 1,
+      },
+    },
+    {
+      label: 'Hand laceration (first aid only)',
+      values: {
+        employee_name: 'Diego Ramirez',
+        job_title: 'Laborer',
+        date_of_event: '2026-04-19',
+        site: 'East Campus Storm Drain',
+        establishment_name: 'Skyline Builders LLC',
+        where_event_occurred: 'Pipe-bedding zone',
+        description: 'Cut left palm on cut-rebar end; first aid applied on-site; no lost time.',
+        days_away_from_work: 0,
+      },
+    },
+    {
+      label: 'Heat illness collapse',
+      values: {
+        employee_name: 'Priya Nair',
+        job_title: 'PV Installer',
+        date_of_event: '2026-04-30',
+        site: 'Greenway Solar Array',
+        establishment_name: 'Skyline Builders LLC',
+        where_event_occurred: 'South field, near combiner skid',
+        description: 'PV installer collapsed at 96F heat index; transported and rehydrated; job transfer 2 days.',
+        days_away_from_work: 0,
+      },
+    },
+    {
+      label: 'Trench caught-in (extricated)',
+      values: {
+        employee_name: 'Lourdes Vega',
+        job_title: 'Excavation Crew Lead',
+        date_of_event: '2026-04-21',
+        site: 'East Campus Excavation',
+        establishment_name: 'Skyline Builders LLC',
+        where_event_occurred: '9 ft Type C trench',
+        description: 'Partial cave-in; worker buried to mid-thigh during pipe bedding; extricated in 14 min; transported for evaluation.',
+        days_away_from_work: 3,
+      },
+    },
+  ],
+  'hazard-image-classifier': [
+    {
+      label: 'Rebar protruding (slab-edge)',
+      values: {
+        site: 'Riverside Tower Phase II',
+        location: 'Level 18 slab-edge',
+        image_url: '',
+        scene_description: 'Vertical rebar protruding 18 in above formwork; no caps; pedestrian walkway 6 ft below.',
+      },
+    },
+    {
+      label: 'Housekeeping (debris pile)',
+      values: {
+        site: 'Mercy Hospital Wing C',
+        location: 'Mechanical room corridor',
+        image_url: '',
+        scene_description: 'Conduit offcuts, cardboard, and unsecured cords spanning a 4 ft section of pathway.',
+      },
+    },
+    {
+      label: 'Open floor opening',
+      values: {
+        site: 'Tower 88 Curtain Wall',
+        location: 'Level 27 elevator shaft adjacent',
+        image_url: '',
+        scene_description: '4 ft x 4 ft floor opening uncovered; no guardrail; nearest worker 8 ft away.',
+      },
+    },
+    {
+      label: 'Leading-edge no guardrail',
+      values: {
+        site: 'Saint Peters Cathedral Re-Roof',
+        location: 'East eave, 64 ft height',
+        image_url: '',
+        scene_description: 'Steep-slope tear-off in progress; no warning line or guardrail at eave; SRL anchors visible.',
+      },
+    },
+    {
+      label: 'Damaged extension cord',
+      values: {
+        site: 'East Campus Excavation',
+        location: 'Job-trailer power drop',
+        image_url: '',
+        scene_description: 'Outer jacket of 12 AWG extension cord shows two splice points wrapped in electrical tape; GFCI not present.',
+      },
+    },
+  ],
+  'leading-indicator-predictor': [
+    {
+      label: 'High near-miss rate, low audit closure',
+      values: {
+        site: 'Riverside Tower Phase II',
+        window_days: 30,
+        near_miss_count: 18,
+        audit_findings_open: 12,
+        training_completion_pct: 78,
+        toolbox_talks_completed: 9,
+        ppe_violations: 7,
+        notes: 'Near-miss rate up 35% vs prior 30 days; 4 high-severity audit findings open >14 days.',
+      },
+    },
+    {
+      label: 'Stable site, good leading indicators',
+      values: {
+        site: 'Tower 88 Curtain Wall',
+        window_days: 30,
+        near_miss_count: 4,
+        audit_findings_open: 1,
+        training_completion_pct: 96,
+        toolbox_talks_completed: 12,
+        ppe_violations: 1,
+        notes: 'All NCCCO certs current; weekly audits closing within 7 days.',
+      },
+    },
+    {
+      label: 'Heat-illness leading-edge risk',
+      values: {
+        site: 'Greenway Solar Array',
+        window_days: 30,
+        near_miss_count: 6,
+        audit_findings_open: 3,
+        training_completion_pct: 88,
+        toolbox_talks_completed: 8,
+        ppe_violations: 4,
+        notes: 'Heat index >95F on 8 of last 14 days; one heat collapse already reported.',
+      },
+    },
+    {
+      label: 'Electrical compliance lag',
+      values: {
+        site: 'Mercy Hospital Wing C',
+        window_days: 30,
+        near_miss_count: 9,
+        audit_findings_open: 5,
+        training_completion_pct: 72,
+        toolbox_talks_completed: 6,
+        ppe_violations: 3,
+        notes: 'NFPA 70E re-cert pending for 4 electricians; LOTO near-miss in last 14 days.',
+      },
+    },
+    {
+      label: 'Trenching ramp-up',
+      values: {
+        site: 'East Campus Storm Drain',
+        window_days: 30,
+        near_miss_count: 11,
+        audit_findings_open: 7,
+        training_completion_pct: 84,
+        toolbox_talks_completed: 7,
+        ppe_violations: 5,
+        notes: 'Crew size doubled last week; competent-person coverage thin on swing shift.',
+      },
+    },
+  ],
   'scaffold-inspector': [
     {
       label: 'Two-point suspended (high-rise)',
@@ -973,6 +1253,67 @@ const SAMPLES = {
     },
   ],
 };
+
+// ===== Apply pass 7: 5 new AI POST endpoints =====
+
+router.post('/rca-analyzer', async (req, res) => {
+  try {
+    const payload = req.body.incident || req.body || {};
+    const result = await ai.rcaAnalyzer(payload);
+    await logResult('rca-analyzer', payload, result);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.post('/near-miss-similarity', async (req, res) => {
+  try {
+    let payload = req.body && Object.keys(req.body).length > 0 ? req.body : null;
+    if (!payload) {
+      const r = await pool.query('SELECT * FROM near_misses ORDER BY id DESC LIMIT 50');
+      payload = { corpus: r.rows };
+    }
+    const result = await ai.nearMissSimilarity(payload);
+    await logResult('near-miss-similarity', payload, result);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.post('/osha-narrative', async (req, res) => {
+  try {
+    const payload = req.body.incident || req.body || {};
+    const result = await ai.oshaNarrative(payload);
+    await logResult('osha-narrative', payload, result);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.post('/hazard-image-classifier', async (req, res) => {
+  try {
+    const payload = req.body || {};
+    const result = await ai.hazardImageClassifier(payload);
+    await logResult('hazard-image-classifier', payload, result);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.post('/leading-indicator-predictor', async (req, res) => {
+  try {
+    const payload = req.body || {};
+    const result = await ai.leadingIndicatorPredictor(payload);
+    await logResult('leading-indicator-predictor', payload, result);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // Alias map: the frontend AiPanel uses short feature keys (e.g. 'toolbox-talk'),
 // but the POST verb is 'generate-toolbox-talk'. Map both to the same sample set.

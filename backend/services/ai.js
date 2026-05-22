@@ -448,6 +448,138 @@ Return JSON:
   return safeJsonParse(r, { checklist: [], summary: typeof r === 'string' ? r : '' });
 }
 
+// ===== Apply pass 7: 5 new AI helpers =====
+
+// 17) RCA analyzer (5-Whys / fishbone)
+async function rcaAnalyzer(payload) {
+  const sys = `${SYSTEM_PROMPT}
+Return JSON:
+{
+  "incident": string,
+  "five_whys": [{ "why": string, "answer": string }],
+  "fishbone": {
+    "people": [string],
+    "process": [string],
+    "equipment": [string],
+    "materials": [string],
+    "environment": [string],
+    "management": [string]
+  },
+  "primary_root_cause": string,
+  "contributing_root_causes": [string],
+  "corrective_actions": [{ "action": string, "type": "engineering"|"administrative"|"ppe"|"training", "owner": string, "deadline_days": number }],
+  "verification_plan": [string],
+  "osha_references": [string],
+  "summary": string
+}`;
+  const user = `Perform a 5-Whys + fishbone root-cause analysis for this incident:\n${JSON.stringify(payload, null, 2)}`;
+  const r = await callOpenRouter(sys, user);
+  return safeJsonParse(r, { five_whys: [], summary: typeof r === 'string' ? r : '' });
+}
+
+// 18) Near-miss similarity matcher
+async function nearMissSimilarity(payload) {
+  const sys = `${SYSTEM_PROMPT}
+Return JSON:
+{
+  "query_summary": string,
+  "matches": [{
+    "near_miss_id": string,
+    "site": string,
+    "similarity_score": number,
+    "shared_factors": [string],
+    "differences": [string],
+    "lessons_carried_forward": [string]
+  }],
+  "common_pattern": string,
+  "recommended_controls": [string],
+  "summary": string
+}`;
+  const user = `Find similar past near-misses for the query event and rank by similarity:\n${JSON.stringify(payload, null, 2)}`;
+  const r = await callOpenRouter(sys, user);
+  return safeJsonParse(r, { matches: [], summary: typeof r === 'string' ? r : '' });
+}
+
+// 19) OSHA narrative drafter (301/300)
+async function oshaNarrative(payload) {
+  const sys = `${SYSTEM_PROMPT}
+Return JSON:
+{
+  "case_no": string,
+  "osha_301_narrative": string,
+  "osha_300_log_entry": {
+    "case_no": string,
+    "employee_name": string,
+    "job_title": string,
+    "date_of_event": string,
+    "establishment_name": string,
+    "where_event_occurred": string,
+    "description_of_injury": string,
+    "classification": "death"|"days_away"|"job_transfer"|"other_recordable"|"not_recordable",
+    "days_away_from_work": number,
+    "days_on_job_transfer": number
+  },
+  "recordable": boolean,
+  "reportable_to_osha": boolean,
+  "reporting_deadline_hours": number,
+  "summary": string
+}`;
+  const user = `Draft OSHA 301 narrative and 300 log entry from this raw incident:\n${JSON.stringify(payload, null, 2)}`;
+  const r = await callOpenRouter(sys, user);
+  return safeJsonParse(r, { osha_301_narrative: '', summary: typeof r === 'string' ? r : '' });
+}
+
+// 20) Hazard image classifier (general site photo)
+async function hazardImageClassifier(payload) {
+  const sys = `${SYSTEM_PROMPT}
+Return JSON:
+{
+  "site": string,
+  "detected_hazards": [{
+    "hazard": string,
+    "category": "fall"|"struck-by"|"electrocution"|"caught-in"|"housekeeping"|"exposed-rebar"|"fall-edge"|"chemical"|"other",
+    "confidence": number,
+    "location_in_image": string,
+    "osha_standard": string,
+    "severity": "low"|"medium"|"high"|"critical",
+    "recommended_control": string
+  }],
+  "housekeeping_score": number,
+  "image_quality": "good"|"fair"|"poor",
+  "immediate_actions": [string],
+  "summary": string
+}`;
+  const user = `Classify general construction site hazards from this site photo (vision-style):\n${JSON.stringify(payload, null, 2)}`;
+  const r = await callOpenRouter(sys, user);
+  return safeJsonParse(r, { detected_hazards: [], summary: typeof r === 'string' ? r : '' });
+}
+
+// 21) Leading-indicator predictor
+async function leadingIndicatorPredictor(payload) {
+  const sys = `${SYSTEM_PROMPT}
+Return JSON:
+{
+  "site": string,
+  "window_days": number,
+  "injury_risk_30d": number,
+  "risk_level": "low"|"moderate"|"high"|"critical",
+  "leading_indicators": [{
+    "indicator": string,
+    "current_value": string,
+    "trend": "rising"|"flat"|"declining",
+    "weight": number,
+    "evidence": string
+  }],
+  "forecast_summary": string,
+  "recommended_actions": [{ "action": string, "owner": string, "deadline_days": number, "priority": "immediate"|"high"|"medium"|"low" }],
+  "confidence": number,
+  "summary": string
+}`;
+  const user = `Forecast 30-day injury risk from these leading indicators (audits, near-miss rate, training completion, etc.):\n${JSON.stringify(payload, null, 2)}`;
+  const r = await callOpenRouter(sys, user);
+  return safeJsonParse(r, { leading_indicators: [], summary: typeof r === 'string' ? r : '' });
+}
+
 module.exports = {
   callOpenRouter,
   safeJsonParse,
@@ -467,4 +599,9 @@ module.exports = {
   trainingGap,
   liftPlan,
   inspectScaffold,
+  rcaAnalyzer,
+  nearMissSimilarity,
+  oshaNarrative,
+  hazardImageClassifier,
+  leadingIndicatorPredictor,
 };

@@ -86,6 +86,7 @@ export const drugTestsApi = crud('drug_tests');
 export const dotRecordsApi = crud('dot_records');
 export const claimsApi = crud('claims');
 export const vendorsApi = crud('vendors');
+export const scaffoldTagComplianceApi = crud('scaffold-tag-compliance');
 
 // AI - existing
 export const aiPredictHazards = (site) =>
@@ -166,3 +167,53 @@ export const bulkImport = (entity, file) => {
   fd.append('file', file);
   return upload(`/bulk-import/${entity}`, fd);
 };
+
+// ===== Apply pass 7: backlog =====
+
+// 5 new AI endpoints
+export const aiRcaAnalyzer = (incident) =>
+  request('/ai/rca-analyzer', { method: 'POST', body: JSON.stringify({ incident }) });
+export const aiNearMissSimilarity = (payload) =>
+  request('/ai/near-miss-similarity', { method: 'POST', body: JSON.stringify(payload || {}) });
+export const aiOshaNarrative = (incident) =>
+  request('/ai/osha-narrative', { method: 'POST', body: JSON.stringify({ incident }) });
+export const aiHazardImageClassifier = (payload) =>
+  request('/ai/hazard-image-classifier', { method: 'POST', body: JSON.stringify(payload) });
+export const aiLeadingIndicatorPredictor = (payload) =>
+  request('/ai/leading-indicator-predictor', { method: 'POST', body: JSON.stringify(payload) });
+
+// OSHA 300 / 300A reports
+export const osha300 = (year, site, format = 'json') => {
+  const qs = new URLSearchParams({ year, ...(site ? { site } : {}), format }).toString();
+  return request(`/osha-reports/300?${qs}`);
+};
+export const osha300A = (year, site, format = 'json') => {
+  const qs = new URLSearchParams({ year, ...(site ? { site } : {}), format }).toString();
+  return request(`/osha-reports/300A?${qs}`);
+};
+// Direct CSV download URL (helper for <a download> links)
+export const oshaReportCsvUrl = (which, year, site) => {
+  const qs = new URLSearchParams({ year, ...(site ? { site } : {}), format: 'csv' }).toString();
+  return `http://localhost:3131/api/osha-reports/${which}?${qs}`;
+};
+
+// Certifications CRUD + expiry
+export const certificationsApi = crud('certifications');
+export const certificationsExpiring = (days = 60) =>
+  request(`/certifications/expiring?days=${days}`);
+
+// Subcontractor onboarding
+export const subcontractorOnboardingApi = crud('subcontractor-onboarding');
+export const subcontractorOnboardingStages = () =>
+  request('/subcontractor-onboarding/stages');
+export const subcontractorOnboardingAdvance = (id) =>
+  request(`/subcontractor-onboarding/${id}/advance`, { method: 'POST' });
+
+// Lone-worker
+export const loneWorkerApi = crud('lone-worker');
+export const loneWorkerOverdue = () => request('/lone-worker/overdue');
+export const loneWorkerAck = (id) => request(`/lone-worker/${id}/ack`, { method: 'POST' });
+
+// Wearables + drones (stub status endpoints)
+export const wearablesStatus = () => request('/wearables/status');
+export const dronesStatus = () => request('/drones/status');

@@ -105,6 +105,15 @@ app.use('/api/ai', require('./routes/ai'));
 // Custom Views (mounted BEFORE 404 handler)
 app.use('/api/custom-views', require('./routes/customViews'));
 
+// Apply pass 7: backlog implementation
+app.use('/api/osha-reports', require('./routes/osha_reports'));
+app.use('/api/certifications', requireWritePermission, require('./routes/certifications'));
+app.use('/api/subcontractor-onboarding', requireWritePermission, require('./routes/subcontractor_onboarding'));
+app.use('/api/lone-worker', requireWritePermission, require('./routes/lone_worker'));
+app.use('/api/wearables', require('./routes/wearables'));
+app.use('/api/drones', require('./routes/drones'));
+app.use('/api/scaffold-tag-compliance', requireWritePermission, require('./routes/scaffold_tag_compliance'));
+
 // 404 fallback for /api/*
 app.use('/api', (req, res) => res.status(404).json({ error: 'Not found', path: req.originalUrl }));
 

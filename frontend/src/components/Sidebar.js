@@ -39,6 +39,7 @@ const groups = [
       { to: '/hazards', label: 'Hazards', icon: <ShieldAlert {...ICON} /> },
       { to: '/jha', label: 'JHA', icon: <ClipboardList {...ICON} /> },
       { to: '/safety_meetings', label: 'Safety Meetings', icon: <Users {...ICON} /> },
+      { to: '/scaffold-tag-compliance', label: 'Scaffold Tags', icon: <Layers {...ICON} /> },
     ],
   },
   {
@@ -71,6 +72,27 @@ const groups = [
       { to: '/ai/training-gap', label: 'Training Gap', icon: <GraduationCap {...ICON} /> },
       { to: '/ai/lift-plan', label: 'Lift Plan', icon: <ArrowUpCircle {...ICON} /> },
       { to: '/ai/scaffold-inspector', label: 'Scaffold Inspector', icon: <Layers {...ICON} /> },
+      { to: '/ai/rca-analyzer', label: 'RCA Analyzer', icon: <Bot {...ICON} /> },
+      { to: '/ai/near-miss-similarity', label: 'Near-Miss Similarity', icon: <Search {...ICON} /> },
+      { to: '/ai/osha-narrative', label: 'OSHA Narrative', icon: <FileText {...ICON} /> },
+      { to: '/ai/hazard-image-classifier', label: 'Hazard Image Classifier', icon: <ShieldAlert {...ICON} /> },
+      { to: '/ai/leading-indicator-predictor', label: 'Leading-Indicator Predictor', icon: <BarChart3 {...ICON} /> },
+    ],
+  },
+  {
+    label: 'Reports & Workflows',
+    items: [
+      { to: '/osha-reports', label: 'OSHA 300 / 300A', icon: <FileText {...ICON} /> },
+      { to: '/certifications', label: 'Certifications', icon: <ShieldCheck {...ICON} /> },
+      { to: '/subcontractor-onboarding', label: 'Sub Onboarding', icon: <UserCheck {...ICON} /> },
+      { to: '/lone-worker', label: 'Lone-Worker Monitor', icon: <Activity {...ICON} /> },
+    ],
+  },
+  {
+    label: 'Integrations',
+    items: [
+      { to: '/wearables', label: 'Wearables', icon: <ShieldCheck {...ICON} /> },
+      { to: '/drones', label: 'Drones', icon: <Wind {...ICON} /> },
     ],
   },
   {
