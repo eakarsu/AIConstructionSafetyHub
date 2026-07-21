@@ -1,0 +1,7 @@
+# Operations
+
+`/api/governed-safety` is the supported reference path: authenticated field observation, deterministic risk scoring, offline/source provenance, corrective actions with evidence, and independent supervisor closure. Broad legacy CRUD, wearable/drone ingestion, and AI routes are disabled by default because their tenant, device, and integration guarantees have not been demonstrated.
+
+Install locked dependencies separately with `npm ci` in `backend` and `frontend`; startup never installs them. Copy `.env.example` to `.env`, use a least-privilege database account and a 32+ character JWT secret, then run `npm run migrate`. The runner applies ordered checksum-verified migrations under an advisory lock and startup never invokes it. Provision an administrator with `ADMIN_EMAIL`, `ADMIN_PASSWORD` (14+ characters), and `ADMIN_TENANT_ID` via `npm run create-admin`. `./start.sh` refuses occupied ports and terminates only its own child processes.
+
+The demo seed is destructive and requires `npm run seed:demo` plus `ALLOW_DEMO_SEED=true`; use only against disposable data. External wearable/BIM/GIS/identity/incident adapters, device certificates, mobile sync queues, jurisdiction-specific code rules, multilingual field validation, latency SLOs, and professional safety review remain blocked on real providers, hardware, rulesets, and qualified reviewers. This code does not claim OSHA, regulatory, device, or professional validation.

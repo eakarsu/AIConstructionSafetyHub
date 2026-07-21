@@ -1,3 +1,6 @@
+if (process.env.ALLOW_DEMO_SEED !== 'true') {
+  throw new Error('Destructive demo seed disabled. Set ALLOW_DEMO_SEED=true only for a disposable database.');
+}
 const { Pool } = require('pg');
 const fs = require('fs');
 const path = require('path');
@@ -9,7 +12,7 @@ const pool = new Pool({
   port: process.env.DB_PORT || 5432,
   database: process.env.DB_NAME || 'construction_safety_hub',
   user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'postgres',
+  password: process.env.DB_PASSWORD,
 });
 
 const SITES = [
@@ -354,12 +357,17 @@ async function insert(client, table, columns, rows) {
 async function seed() {
   const client = await pool.connect();
   try {
-    const schemaPath = path.join(__dirname, '..', 'migrations', '001_schema.sql');
-    const extPath = path.join(__dirname, '..', 'migrations', '002_extended.sql');
-    const schemaSql = fs.readFileSync(schemaPath, 'utf8');
-    const extSql = fs.readFileSync(extPath, 'utf8');
-    await client.query(schemaSql);
-    await client.query(extSql);
+    await client.query(`
+      DROP TABLE IF EXISTS safety_events CASCADE;
+      DROP TABLE IF EXISTS safety_closure_reviews CASCADE;
+      DROP TABLE IF EXISTS safety_corrective_actions CASCADE;
+      DROP TABLE IF EXISTS governed_safety_hazards CASCADE;
+    `);
+    const migrationsDirectory = path.join(__dirname, '..', 'migrations');
+    for (const filename of fs.readdirSync(migrationsDirectory).filter((name) => name.endsWith('.sql')).sort()) {
+      const migration = fs.readFileSync(path.join(migrationsDirectory, filename), 'utf8');
+      await client.query(migration);
+    }
 
     await insert(client, 'sites',
       ['site_id','name','address','project_type','status','supervisor','worker_count'], SITES);
