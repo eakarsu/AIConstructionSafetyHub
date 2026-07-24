@@ -2,6 +2,9 @@
 set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 if [[ ! -f "$ROOT_DIR/.env" ]]; then echo "Missing .env. Copy .env.example and configure it first." >&2; exit 1; fi
+set -a
+. "$ROOT_DIR/.env"
+set +a
 BACKEND_PORT="${BACKEND_PORT:-3031}"; FRONTEND_PORT="${FRONTEND_PORT:-3030}"; ALLOWED_ORIGINS="${ALLOWED_ORIGINS:-http://127.0.0.1:$FRONTEND_PORT,http://localhost:$FRONTEND_PORT}"; export BACKEND_PORT FRONTEND_PORT ALLOWED_ORIGINS
 if [[ ! -d "$ROOT_DIR/backend/node_modules" || ! -d "$ROOT_DIR/frontend/node_modules" ]]; then echo "Dependencies are missing. Run npm ci separately in backend and frontend." >&2; exit 1; fi
 for port in "$BACKEND_PORT" "$FRONTEND_PORT"; do
