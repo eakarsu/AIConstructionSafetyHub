@@ -327,11 +327,17 @@ const NOTIFICATIONS = [
   [null, 'claim.upserted', 'New claim CLM-16001 opened', 'Workers-comp claim filed - 12500 USD.', 'medium', '/api/claims'],
 ];
 
+function requireDemoPassword() {
+  const password = process.env.DEMO_PASSWORD || process.env.SEED_DEMO_PASSWORD || process.env.DEMO_SEED_PASSWORD || '';
+  if (password.length < 12 || password.length > 1024) throw new Error('DEMO_PASSWORD must contain 12-1024 characters');
+  return password;
+}
+
 async function insertUsers(client) {
   const rows = [
-    ['safety@construction.io', 'Safety Manager', bcrypt.hashSync('osha123', 10), 'safety_officer'],
-    ['admin@construction.io', 'Site Admin', bcrypt.hashSync('admin123', 10), 'admin'],
-    ['worker@construction.io', 'Crew Worker', bcrypt.hashSync('worker123', 10), 'worker'],
+    ['safety@construction.io', 'Safety Manager', bcrypt.hashSync(requireDemoPassword(), 10), 'safety_officer'],
+    ['admin@construction.io', 'Site Admin', bcrypt.hashSync(requireDemoPassword(), 10), 'admin'],
+    ['worker@construction.io', 'Crew Worker', bcrypt.hashSync(requireDemoPassword(), 10), 'worker'],
   ];
   for (const r of rows) {
     await client.query(
