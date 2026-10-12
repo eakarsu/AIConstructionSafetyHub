@@ -19,7 +19,7 @@ export default function AIClaimFraudPage() {
         { key: 'days_since_incident', label: 'Days From Incident to Report', type: 'number' },
       ]}
       initial={{
-        claim_id: 'CLM-16007',
+        claim_id: '',
         type: 'workers-comp',
         claimant: 'Lacey Brown rigging strap failure',
         amount_usd: 33500,

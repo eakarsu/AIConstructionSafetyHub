@@ -17,7 +17,7 @@ export default function AIPpeDetectorPage() {
         { key: 'expected_ppe', label: 'Expected PPE (comma list)', type: 'textarea' },
       ]}
       initial={{
-        worker_id: 'W-1005',
+        worker_id: '',
         worker: 'David Olsen',
         site: 'Riverside Tower Phase II',
         task: 'Tower crane operator briefing in slab pour zone',

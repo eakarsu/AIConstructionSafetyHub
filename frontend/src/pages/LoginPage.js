@@ -4,8 +4,11 @@ import { HardHat } from 'lucide-react';
 import { login } from '../services/api';
 
 export default function LoginPage({ onLogin }) {
-  const [email, setEmail] = useState('safety@construction.io');
-  const [password, setPassword] = useState('osha123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const demoEmail = process.env.REACT_APP_DEMO_EMAIL;
+  const demoPassword = process.env.REACT_APP_DEMO_PASSWORD;
+  const demoAvailable = Boolean(demoEmail && demoPassword);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const nav = useNavigate();
@@ -63,23 +66,18 @@ export default function LoginPage({ onLogin }) {
 
         <button
           type="button"
-          onClick={() => { setEmail(process.env.REACT_APP_DEMO_EMAIL || ''); setPassword(process.env.REACT_APP_DEMO_PASSWORD || ''); }}
-          disabled={!process.env.REACT_APP_DEMO_EMAIL || !process.env.REACT_APP_DEMO_PASSWORD}
-          aria-label="Auto Fill Demo Credentials"
+          onClick={() => { setEmail(demoEmail); setPassword(demoPassword); setError(''); }}
+          disabled={!demoAvailable || loading}
+          aria-label="Fill demo credentials"
           style={{ width: '100%', marginBottom: '12px', padding: '10px 14px', borderRadius: '8px', border: '1px solid currentColor', background: 'transparent', cursor: 'pointer' }}
         >
-          Auto Fill Demo Credentials
+          Fill demo credentials
         </button>
         <button type="submit" className="btn" disabled={loading} style={{ width: '100%', padding: '10px 14px' }}>
           {loading ? <><span className="spinner" /> Signing in...</> : 'Sign In'}
         </button>
 
-        <div className="login-hint">
-          Demo accounts:
-          <div><code>safety@construction.io</code> / <code>osha123</code> (safety_officer)</div>
-          <div><code>admin@construction.io</code> / <code>admin123</code> (admin)</div>
-          <div><code>worker@construction.io</code> / <code>worker123</code> (worker, read-only)</div>
-        </div>
+        {!demoAvailable && <div className="login-hint">Demo credentials are not configured for this app session.</div>}
       </form>
     </div>
   );

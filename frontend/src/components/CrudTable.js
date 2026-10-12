@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Pencil, Trash2, Plus, Download, ChevronLeft, ChevronRight } from 'lucide-react';
+import RecordDialog from './RecordDialog';
 
 const PAGE_SIZE = 25;
 
@@ -37,6 +38,7 @@ export default function CrudTable({ title, subtitle, api, columns, defaults = {}
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
+  const [detail, setDetail] = useState(null);
 
   async function load() {
     setLoading(true);
@@ -249,7 +251,13 @@ export default function CrudTable({ title, subtitle, api, columns, defaults = {}
                 <tr><td colSpan={columns.length + 1} style={{ textAlign: 'center', padding: 24 }} className="muted">No records.</td></tr>
               )}
               {pageRows.map((row) => (
-                <tr key={row.id}>
+                <tr
+                  key={row.id}
+                  onClick={() => setDetail(row)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setDetail(row); } }}
+                  tabIndex={0}
+                  style={{ cursor: 'pointer' }}
+                >
                   {columns.map((c) => <td key={c.key}>{renderCell(row, c)}</td>)}
                   <td className="right">
                     <button className="btn secondary small" onClick={() => startEdit(row)} style={{ marginRight: 6 }}>
@@ -265,6 +273,17 @@ export default function CrudTable({ title, subtitle, api, columns, defaults = {}
           </table>
         )}
       </div>
+
+      {detail && (
+        <RecordDialog
+          title={`${title || 'Record'} details`}
+          item={detail}
+          columns={columns}
+          onClose={() => setDetail(null)}
+          onEdit={(row) => { setDetail(null); startEdit(row); }}
+          onDelete={async (row) => { setDetail(null); await remove(row); }}
+        />
+      )}
     </div>
   );
 }

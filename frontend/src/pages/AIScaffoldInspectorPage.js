@@ -17,7 +17,7 @@ export default function AIScaffoldInspectorPage() {
         { key: 'condition_notes', label: 'Condition Notes', type: 'textarea' },
       ]}
       initial={{
-        scaffold_id: 'SCAF-2201',
+        scaffold_id: '',
         site: 'Tower 88 Curtain Wall',
         type: 'suspended',
         height_ft: 280,

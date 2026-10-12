@@ -441,7 +441,6 @@ const SAMPLES = {
     {
       label: 'Tower crane operator on slab',
       values: {
-        worker_id: 'W-1005',
         worker: 'David Olsen',
         site: 'Riverside Tower Phase II',
         task: 'Tower crane operator briefing in active slab pour zone',
@@ -452,7 +451,6 @@ const SAMPLES = {
     {
       label: 'Welder hot work',
       values: {
-        worker_id: 'W-2204',
         worker: 'Carla Mendez',
         site: 'Mercy Hospital Wing C',
         task: 'MIG welding structural brackets in mechanical room',
@@ -463,7 +461,6 @@ const SAMPLES = {
     {
       label: 'Trench laborer with spoil pile',
       values: {
-        worker_id: 'W-3310',
         worker: 'Lourdes Vega',
         site: 'East Campus Storm Drain',
         task: 'Pipe bedding in 11 ft Type C trench (hydraulic shored)',
@@ -474,7 +471,6 @@ const SAMPLES = {
     {
       label: 'Electrician on 480V switchgear',
       values: {
-        worker_id: 'W-4407',
         worker: 'Anthony DiMarco',
         site: 'Mercy Hospital Wing C',
         task: 'Energized 480V switchgear voltage verification',
@@ -485,7 +481,6 @@ const SAMPLES = {
     {
       label: 'Roofer steep slope',
       values: {
-        worker_id: 'W-5512',
         worker: 'Marcus Tate',
         site: 'Saint Peters Cathedral Re-Roof',
         task: 'Steep-slope tear-off at 64 ft eave',
@@ -733,7 +728,6 @@ const SAMPLES = {
     {
       label: 'Late-reported back injury, no witness',
       values: {
-        claim_id: 'CLM-16007',
         type: 'workers-comp',
         claimant: 'Lacey Brown - rigging strap failure alleged',
         amount_usd: 33500,
@@ -746,7 +740,6 @@ const SAMPLES = {
     {
       label: 'Soft-tissue auto, low impact',
       values: {
-        claim_id: 'CLM-16210',
         type: 'auto',
         claimant: 'Robert Hennessey - rear-ended at site entrance',
         amount_usd: 8800,
@@ -759,7 +752,6 @@ const SAMPLES = {
     {
       label: 'GL trip-and-fall, high amount',
       values: {
-        claim_id: 'CLM-16315',
         type: 'general-liability',
         claimant: 'Visitor trip-and-fall at site office trailer',
         amount_usd: 72000,
@@ -772,7 +764,6 @@ const SAMPLES = {
     {
       label: 'WC cumulative trauma, prior history',
       values: {
-        claim_id: 'CLM-16422',
         type: 'workers-comp',
         claimant: 'Worker alleging carpal tunnel from rebar tying',
         amount_usd: 18750,
@@ -785,7 +776,6 @@ const SAMPLES = {
     {
       label: 'Clean WC, immediate report',
       values: {
-        claim_id: 'CLM-16530',
         type: 'workers-comp',
         claimant: 'Diego Ramirez - hand laceration on rebar',
         amount_usd: 2400,
@@ -1199,7 +1189,6 @@ const SAMPLES = {
     {
       label: 'Two-point suspended (high-rise)',
       values: {
-        scaffold_id: 'SCAF-2201',
         site: 'Tower 88 Curtain Wall',
         type: 'suspended',
         height_ft: 280,
@@ -1210,7 +1199,6 @@ const SAMPLES = {
     {
       label: 'Frame supported (hospital exterior)',
       values: {
-        scaffold_id: 'SCAF-1108',
         site: 'Mercy Hospital Wing C',
         type: 'supported',
         height_ft: 42,
@@ -1221,7 +1209,6 @@ const SAMPLES = {
     {
       label: 'JLG 1850SJ aerial lift',
       values: {
-        scaffold_id: 'AERIAL-3315',
         site: 'Saint Peters Cathedral Re-Roof',
         type: 'aerial',
         height_ft: 185,
@@ -1232,7 +1219,6 @@ const SAMPLES = {
     {
       label: 'Mobile (rolling) scaffold',
       values: {
-        scaffold_id: 'SCAF-4422',
         site: 'East Campus Excavation',
         type: 'mobile',
         height_ft: 20,
@@ -1243,7 +1229,6 @@ const SAMPLES = {
     {
       label: 'Tube-and-coupler (industrial)',
       values: {
-        scaffold_id: 'SCAF-5538',
         site: 'Harbor Pier 14 Reconstruction',
         type: 'tube-and-coupler',
         height_ft: 36,

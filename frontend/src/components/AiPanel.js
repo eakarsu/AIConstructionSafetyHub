@@ -42,6 +42,8 @@ export default function AiPanel({ title, subtitle, fields, onRun, initial = {}, 
       const next = { ...prev };
       // Only fill keys the panel actually declares as fields - keeps payload shape stable.
       fields.forEach((f) => {
+        // An identifier must come from an existing record or asset, never a sample.
+        if (f.key.endsWith('_id')) return;
         if (Object.prototype.hasOwnProperty.call(sample.values, f.key)) {
           const v = sample.values[f.key];
           next[f.key] = v === null || v === undefined ? '' : v;
@@ -121,6 +123,11 @@ export default function AiPanel({ title, subtitle, fields, onRun, initial = {}, 
 
       <div className="card">
         <div className="section-title">Inputs</div>
+        {fields.some((f) => f.key.endsWith('_id')) && (
+          <div className="muted" style={{ marginBottom: 10 }}>
+            Enter an existing identifier in the ID field. Sample fill keeps any identifier already entered.
+          </div>
+        )}
         <div className="form-grid">
           {fields.map((f) => {
             const v = form[f.key] ?? '';
