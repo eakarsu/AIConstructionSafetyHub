@@ -38,6 +38,7 @@ app.use('/api', authenticateToken);
 
 // Tenant-scoped observation-to-verified-closure reference workflow.
 app.use('/api/governed-safety', require('./routes/governedSafety'));
+app.use('/api/feature-pack', require('./routes/featurePack'));
 
 if (process.env.ENABLE_LEGACY_GLOBAL_ROUTES !== 'true') {
   app.use('/api', (req, res) => res.status(404).json({

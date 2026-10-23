@@ -13,12 +13,11 @@ export default function LoginPage({ onLogin }) {
   const [error, setError] = useState('');
   const nav = useNavigate();
 
-  async function submit(e) {
-    e.preventDefault();
+  async function signInWith(loginEmail, loginPassword) {
     setError('');
     setLoading(true);
     try {
-      const res = await login(email, password);
+      const res = await login(loginEmail, loginPassword);
       localStorage.setItem('token', res.token);
       localStorage.setItem('user', JSON.stringify(res.user));
       if (onLogin) onLogin(res.user, res.token);
@@ -28,6 +27,11 @@ export default function LoginPage({ onLogin }) {
     } finally {
       setLoading(false);
     }
+  }
+
+  async function submit(e) {
+    e.preventDefault();
+    await signInWith(email, password);
   }
 
   return (
@@ -66,7 +70,7 @@ export default function LoginPage({ onLogin }) {
 
         <button
           type="button"
-          onClick={() => { setEmail(demoEmail); setPassword(demoPassword); setError(''); }}
+          onClick={() => { setEmail(demoEmail); setPassword(demoPassword); signInWith(demoEmail, demoPassword); }}
           disabled={!demoAvailable || loading}
           aria-label="Fill demo credentials"
           style={{ width: '100%', marginBottom: '12px', padding: '10px 14px', borderRadius: '8px', border: '1px solid currentColor', background: 'transparent', cursor: 'pointer' }}
